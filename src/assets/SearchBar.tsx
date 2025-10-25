@@ -2,20 +2,6 @@ import { useState, useEffect, useMemo, useRef, useCallback } from "react"
 import { dataSeven as data } from "./DataSeven"
 import "./SearchBar.css"
 
-interface ItemData {
-  id: number
-  titre: string
-  auteur: string
-  description: string
-  description_longue?: string
-  image?: string
-  iconImage?: string
-  date: string
-  statut: string
-  lien: string
-  type: string
-}
-
 interface SearchBarProps {
   onActiveChange?: (active: boolean) => void
 }
@@ -240,3 +226,4 @@ export default function SearchBar({ onActiveChange }: SearchBarProps) {
     </>
   )
 }
+
