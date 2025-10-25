@@ -1,0 +1,738 @@
+
+a {
+  text-decoration: none;
+}
+
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+
+.manhua-card {
+  display: flex;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manhua-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.manhua-title {
+  text-decoration: none;
+  color: #fff; 
+}
+
+
+:root {
+  --violet: #a46bff;
+  --blue: #4b8aff;
+  --gradient: linear-gradient(90deg, var(--violet), var(--blue));
+  --dark-bg: rgba(15, 17, 26, 0.85);
+  --card-bg: rgba(30, 32, 45, 0.9);
+  --transition: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 18px;
+
+  --manga: #ff6b6b;
+  --manhua: #feca57;
+  --anime: #54a0ff;
+  --encours: #1dd1a1;
+  --termine: #ff9f43;
+  --pause: #5f27cd;
+}
+
+html, body {
+  overflow-y: scroll;
+}
+
+.search-blur-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.75);
+  backdrop-filter: blur(12px) brightness(0.8);
+  z-index: 3;
+  animation: fadeIn 0.4s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.search-container {
+  position: fixed;
+  top: 1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 90%;
+  max-width: 550px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 44px 14px 18px;
+  font-size: 1.05rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(25, 28, 42, 0.9);
+  color: #fff;
+  outline: none;
+  transition: all 0.35s ease;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px) saturate(180%);
+}
+
+.search-input:focus {
+  border-color: var(--violet);
+  box-shadow: 0 0 14px rgba(164, 107, 255, 0.4);
+}
+
+.reset-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--violet);
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.reset-btn:hover {
+  color: #ff4d4d;
+  transform: translateY(-50%) rotate(90deg) scale(1.1);
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.filters select,
+.filters select option,
+.reset-btn {
+  text-decoration: none !important;
+  outline: none;
+}
+
+.filters select {
+  appearance: none;
+  background: rgba(25, 28, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 14px;
+  padding: 10px 36px 10px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-image: linear-gradient(45deg, var(--violet), var(--blue));
+  background-size: 0 2px, auto;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  text-decoration: none;
+}
+
+.filters select:hover {
+  border-color: var(--violet);
+  box-shadow: 0 0 10px rgba(164, 107, 255, 0.3);
+  
+}
+.filters select:focus {
+  border-color: var(--violet);
+  box-shadow: 0px 0px 10px rgba(164, 107, 255, 0.3);
+  
+}
+.filters select option {
+  padding: 6px 12px;
+  line-height: 1.6;
+}
+
+.search-results {
+  position: relative;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: center;
+  align-items: start;
+  gap: 24px;
+  width: 90%;
+  max-width: 950px;
+  max-height: 75vh;
+  padding-right: 6px;
+  overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+  .search-results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .search-results {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
+.no-results {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  background: rgba(25, 28, 42, 0.85);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+.manhua-card {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 3 / 4.6;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  animation: fadeCascade 0.8s var(--transition) forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.manhua-card:nth-child(1) { animation-delay: 0.05s; }
+.manhua-card:nth-child(2) { animation-delay: 0.15s; }
+.manhua-card:nth-child(3) { animation-delay: 0.25s; }
+.manhua-card:nth-child(4) { animation-delay: 0.35s; }
+.manhua-card:nth-child(5) { animation-delay: 0.45s; }
+.manhua-card:nth-child(6) { animation-delay: 0.55s; }
+
+@keyframes fadeCascade {
+  from { opacity: 0; transform: translateY(60px) scale(0.9); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+.manhua-card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 10px 28px rgba(164, 107, 255, 0.4);
+}
+
+
+.image-wrapper {
+  position: relative;
+  height: 65%;
+  overflow: hidden;
+}
+
+.manhua-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.manhua-card:hover .manhua-image {
+  transform: scale(1.08);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  text-align: center;
+  padding: 8px 0;
+}
+
+.overlay-text {
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 600;
+  text-shadow:
+    -0.5px -0.5px 1px rgba(0, 0, 0, 0.5),
+    0.5px -0.5px 1px rgba(0, 0, 0, 0.5),
+    -0.5px 0.5px 1px rgba(0, 0, 0, 0.5),
+    0.5px 0.5px 1px rgba(0, 0, 0, 0.5);
+}
+
+
+.manhua-info {
+  padding: 10px 14px 8px;
+  background: var(--dark-bg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.manhua-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.manhua-description {
+  font-size: 0.9rem;
+  line-height: 1.3;
+  text-align: justify;
+  color: #ccc;
+}
+
+.manhua-meta {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-align: center;
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+
+.tag {
+  padding: 2px 5px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  text-transform: capitalize;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.tag.manga {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+}
+
+.tag.manhua {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #fff;
+}
+
+.tag.anime {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+}
+
+.tag.status-continu {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.tag.status-terminé {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.tag.status-pause {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+}
+
+.tag:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+  transition: all 0.25s ease-in-out;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2.5rem 0 1.5rem;
+  gap: 10px;
+}
+
+.page-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: white;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  min-width: 40px;
+  transition: all 0.3s ease;
+}
+
+.page-btn:hover {
+  background: var(--gradient);
+}
+
+.page-btn.active {
+  background: var(--gradient);
+  box-shadow: 0 0 15px rgba(164, 107, 255, 0.6);
+  transform: scale(1.15);
+}
+.search-results {
+  overflow-y: hidden;
+}
+
+@media (max-width: 768px) {
+  .search-results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 95%;
+    margin: 2% auto 0 auto; 
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--violet) rgba(20, 22, 35, 0.7);
+    position: relative;
+  }
+
+
+  html, body {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  .search-results::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .search-results::-webkit-scrollbar-track {
+    background: rgba(15, 17, 26, 0.55);
+    border-radius: 12px;
+    margin: 4px 0;
+  }
+
+  .search-results::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(164, 107, 255, 0.85), rgba(75, 138, 255, 0.85));
+    border-radius: 12px;
+    box-shadow: 0 0 6px rgba(164, 107, 255, 0.4);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .search-results::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, #b085ff, #6ba0ff);
+    box-shadow: 0 0 10px rgba(164, 107, 255, 0.7);
+  }
+
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: rgba(15, 17, 26, 0.6);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(164, 107, 255, 0.8), rgba(75, 138, 255, 0.8));
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(164, 107, 255, 0.5);
+  }
+
+
+  .search-results::after {
+    content: "";
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(15, 17, 26, 1), transparent);
+  }
+
+
+  .manhwa-card {
+    max-width: 100%;
+    aspect-ratio: 3 / 4.8;
+    transform: translateY(2%); 
+    transition: transform 0.3s ease;
+  }
+
+  .manhwa-card:hover {
+    transform: translateY(0) scale(1.02);
+  }
+
+  .manhwa-title {
+    font-size: 0.95rem;
+  }
+
+  .manhwa-description {
+    font-size: 0.85rem;
+  }
+  .search-input-wrapper {
+    max-width:60%;
+    max-height: 2.5em;
+  }
+}
+
+
+:root {
+  --violet: #a46bff;
+  --blue: #4b8aff;
+  --gradient: linear-gradient(90deg, var(--violet), var(--blue));
+  --dark-bg: rgba(15, 17, 26, 0.85);
+  --card-bg: rgba(30, 32, 45, 0.9);
+  --radius: 18px;
+
+  --manga: #ff6b6b;
+  --manhwa: #feca57;
+  --anime: #54a0ff;
+  --encours: #1dd1a1;
+  --termine: #ff9f43;
+  --pause: #5f27cd;
+}
+
+
+html,
+body {
+  overflow-y: scroll;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.search-container {
+  position: relative;
+  top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+.page-title {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+
+.search-results {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: center;
+  gap: 24px;
+  width: 90%;
+  max-width: 950px;
+}
+
+@media (max-width: 900px) {
+  .search-results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .search-results {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.manhua-card {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 3 / 4.6;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.manhua-card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 10px 28px rgba(164, 107, 255, 0.4);
+}
+
+.image-wrapper {
+  position: relative;
+  height: 65%;
+  overflow: hidden;
+}
+
+.manhua-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.manhua-card:hover .manhua-image {
+  transform: scale(1.08);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  text-align: center;
+  padding: 8px 0;
+}
+
+.overlay-text {
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+
+.manhua-info {
+  padding: 12px 14px 10px;
+  background: var(--dark-bg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+.manhua-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  letter-spacing: 0.06em;
+}
+
+.manhua-description {
+  font-size: 0.9rem;
+  line-height: 1.3;
+   text-align: center;
+  color: #ccc;
+}
+
+
+.manhua-tags {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.tag {
+  padding: 0.25rem 0.45rem;
+  border-radius: 7px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.tag-type.manhwa {
+  background: linear-gradient(90deg, #a270ff, #d2b4ff);
+  box-shadow: 0 0 8px rgba(162, 112, 255, 0.45);
+}
+
+.tag-type.manga {
+  background: linear-gradient(90deg, #56a4ff, #b3e0ff);
+  box-shadow: 0 0 8px rgba(86, 164, 255, 0.45);
+}
+
+.tag-type.anime {
+  background: linear-gradient(90deg, #ff6b6b, #ffc1c1);
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.45);
+}
+
+
+.tag-statut.encours {
+  background: linear-gradient(90deg, #00c48c, #6af3c0);
+  box-shadow: 0 0 6px rgba(0, 196, 140, 0.4);
+}
+
+.tag-statut.terminé {
+  background: linear-gradient(90deg, #6c63ff, #b5aaff);
+  box-shadow: 0 0 6px rgba(108, 99, 255, 0.4);
+}
+
+.tag-statut.pause {
+  background: linear-gradient(90deg, #ffb800, #ffe18a);
+  box-shadow: 0 0 6px rgba(255, 184, 0, 0.4);
+}
+
+
+@media (max-width: 768px) {
+  .search-results {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .manhua-card {
+    max-width: 100%;
+    aspect-ratio: 3 / 4.8;
+  }
+
+  .manhua-title {
+    font-size: 0.95rem;
+  }
+
+  .manhua-description {
+    font-size: 0.85rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+  }
+}

@@ -1,0 +1,43 @@
+/* === MenuBurger.css === */
+
+.MenuBurgerButton {
+  position: fixed;
+  top: 3em;
+  right: 6em;
+  width: 34px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 101;
+  background: none;
+  border: none;
+  transition: var(--transition);
+}
+
+.MenuBurgerButton .line {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--violet));
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.MenuBurgerButton.active .top {
+  transform: rotate(-45deg) translate(-6px, 8px);
+}
+.MenuBurgerButton.active .middle {
+  opacity: 0;
+}
+.MenuBurgerButton.active .bottom {
+  transform: rotate(45deg) translate(-6px, -8px);
+}
+
+@media (max-width: 600px) {
+  .MenuBurgerButton {
+    right: 1.8em;
+    top: 2em;
+    transform: scale(.9);
+  }
+}
