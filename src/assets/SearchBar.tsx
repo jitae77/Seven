@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-  useCallback,
-} from "react";
+
 import { dataSeven as data } from "./DataSeven";
 import "./SearchBar.css";
 
@@ -255,3 +249,4 @@ export default function SearchBar({ onActiveChange }: SearchBarProps): JSX.Eleme
     </>
   );
 }
+
